@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="image-section">
-      <img src="@/assets/child.png" alt="Learning" class="welcome-image">
+      <img src="@/assets/img.png" alt="Learning" class="welcome-image">
     </div>
   </div>
 </template>
