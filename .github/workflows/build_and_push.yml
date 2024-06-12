@@ -54,9 +54,14 @@ jobs:
             # Run Docker Compose
             sudo docker-compose up -d --remove-orphans
 
-            # Cache the Laravel configuration and routes inside the running container
+            # Run Laravel artisan commands
+            sudo docker-compose exec backend composer install --no-dev --optimize-autoloader
+            sudo docker-compose exec backend php artisan key:generate
+            sudo docker-compose exec backend php artisan migrate --force
+            sudo docker-compose exec backend php artisan db:seed --force
             sudo docker-compose exec backend php artisan config:cache
             sudo docker-compose exec backend php artisan route:cache
+            sudo docker-compose exec backend php artisan view:cache
 
             # Clean up dangling images
             sudo docker system prune -af
