@@ -1,0 +1,55 @@
+version: '3.9'
+
+services:
+  backend:
+    image: wailhadad1221/project_image:backend-latest
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/var/www
+    depends_on:
+      - db
+    env_file:
+      - api/.env
+    command: >
+      bash -c "composer install &&
+               php artisan key:generate &&
+               php artisan migrate &&
+               php artisan db:seed &&
+               php artisan serve --host=0.0.0.0 --port=8000"
+    ports:
+      - "8000:8000"
+
+  frontend:
+    image: wailhadad1221/project_image:frontend-latest
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - db
+
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: myapp
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: wailw2445@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 123
+    ports:
+      - "5050:80"
+
+volumes:
+  pgdata:
