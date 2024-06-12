@@ -37,7 +37,7 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@13.51.206.218 << 'EOF'
-            cd /home/ubuntu/my-docker-compose-project || git clone https://github.com/WAIL1221/CD1_APP.git my-docker-compose-project && cd my-docker-compose-project
+            cd /home/ubuntu/my-docker-compose-project || git clone https://github.com/WAIL1221/CI_CD.git my-docker-compose-project && cd my-docker-compose-project
 
             # Stop running containers
             sudo docker-compose down

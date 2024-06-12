@@ -31,7 +31,7 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 RUN chown -R www-data:www-data /var/www
 
 # Expose port
-EXPOSE 9000
+EXPOSE 8000
 
 # Start-up script
 CMD ["php-fpm"]
